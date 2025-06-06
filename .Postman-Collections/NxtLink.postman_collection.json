@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "c849df61-2ecc-445c-b8cb-35519b951461",
+		"name": "NxtLink",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44251062"
+	},
+	"item": [
+		{
+			"name": "ShortURLs",
+			"item": [
+				{
+					"name": "shortURL",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"originalUrl\": \"https://leetcode.com/u/pandeyyash041/\",\r\n  \"typeURL\": \"Public\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.91:3000/api/urls",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"91"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"urls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "shortURL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.91:3000/api/urls",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"91"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"urls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShortURL-ByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.91:3000/api/urls/68431e0158d2051e945202bf",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"91"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"urls",
+								"68431e0158d2051e945202bf"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"yashpandey@gmail.com\",\r\n  \"username\": \"yashpandey\",\r\n  \"fullname\": \"Yash Pandey\",\r\n  \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.91:3000/api/signup",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"91"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"yashpandey@gmail.com\",\r\n  \"username\": \"yashpandey\",\r\n  \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.91:3000/api/login",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"91"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
