@@ -43,31 +43,60 @@ async function verifyJWT(request) {
 
 export async function GET(request, { params }) {
   try {
+    console.log("Entering GET request handler");
     await connectToDatabase();
 
-    const { id } = params; // directly use params here
+    console.log("Connected to database successfully");
+    // const { id } = params; // directly use params here
+    const shortId = await params.id;
 
+    console.log("Short ID to find:", shortId);
     console.log("1");
-    const user = await verifyJWT(request);
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json({ error: "Invalid ID format" }, { status: 400 });
-    }
+    // const user = await verifyJWT(request);
 
     console.log("3");
     console.log("Before fetching ShortID Objects");
-    const allShortIDs = await Url.findById(id).populate(
-      "createdBy",
-      "username fullname",
-    );
 
+    const ShortIDObject = await Url.findOne({
+      shortId: shortId,
+    }).populate("createdBy", "username fullname");
+
+    console.log("ShortID Object fetched:", ShortIDObject);
     console.log("After fetching ShortID Objects");
 
-    if (!allShortIDs) {
+    if (!ShortIDObject) {
       return NextResponse.json({ error: "ShortID not found" }, { status: 404 });
     }
 
-    return NextResponse.json(allShortIDs, { status: 201 });
+    console.log("Before updating visitHistory");
+    // Push current timestamp to visitHistory array
+    const updatedObject = await Url.findByIdAndUpdate(
+      ShortIDObject._id,
+      { $push: { visitHistory: { timestamp: new Date() } } },
+      { new: true }, // optional: returns the updated document
+    );
+    console.log("After updating visitHistory");
+
+    // Extract and fix URL if needed
+    let originalURL = ShortIDObject.redirectURL;
+    if (
+      !originalURL.startsWith("http://") &&
+      !originalURL.startsWith("https://")
+    ) {
+      originalURL = "https://" + originalURL; // Auto-fix missing protocol
+    }
+
+    console.log(`Redirecting to: ${originalURL}`);
+    return NextResponse.redirect(originalURL);
+    // const response = NextResponse.json(
+    //   {
+    //     success: true,
+    //     message: "Redirecting To Orignal URL",
+    //     originalURL: originalURL,
+    //   },
+    //   { status: 200 },
+    // );
+    // return response;
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to return ShortID Objects" },

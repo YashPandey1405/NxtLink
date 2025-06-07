@@ -56,7 +56,13 @@ export async function POST(request) {
     );
 
     // Prepare response and clear cookies
-    const response = NextResponse.json({ message: "Logout successful" });
+    const response = NextResponse.json(
+      {
+        success: true,
+        message: "Logout successful",
+      },
+      { status: 200 },
+    );
 
     // Clear cookies By Making The Access and Refresh Tokens Expired......
     response.cookies.set({
