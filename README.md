@@ -2,6 +2,9 @@
 
 _A full-stack URL shortener application built with Next.js, MongoDB, and JWT authentication._
 
+🎥 **Demo Video:** [Watch on YouTube](https://youtu.be/5n8TJRkrEA8)  
+🌐 **Live App:** [nxt-link-lilac.vercel.app](https://nxt-link-lilac.vercel.app)
+
 ---
 
 ## 🚀 Features
@@ -13,7 +16,7 @@ _A full-stack URL shortener application built with Next.js, MongoDB, and JWT aut
 - Role-based URL access: Public and Private URLs
 - Frontend routing with **React Router DOM**
 - Clean, responsive UI built in JSX/React
-- Deployed seamlessly on **Vercel**
+- ✅ **Deployed on Vercel** for fast, global delivery
 
 ---
 
@@ -49,72 +52,23 @@ _A full-stack URL shortener application built with Next.js, MongoDB, and JWT aut
 
 ---
 
-## ⚙️ Getting Started
-
-### Prerequisites
-
-- Node.js v16 or higher
-- MongoDB Atlas account or local MongoDB
-- Vercel account (for deployment)
-
-### Setup
-
-1. Clone the repo
-
-```bash
-git clone https://github.com/yourusername/nxtlink.git
-cd nxtlink
-```
-
-2. Install dependencies
-
-```bash
-npm install
-```
-
-3. Create a `.env.local` file (see `.env.sample` for reference) and add:
-
-```
-PORT=8080
-MONGODB_URI=your_mongodb_connection_string
-
-ACCESS_TOKEN_SECRET=your_jwt_access_token_secret
-ACCESS_TOKEN_EXPIRY=1d
-
-REFRESH_TOKEN_SECRET=your_jwt_refresh_token_secret
-REFRESH_TOKEN_EXPIRY=7d
-
-MAILTRAP_SMTP_HOST=your_mailtrap_smtp_host
-MAILTRAP_SMTP_PORT=your_mailtrap_smtp_port
-MAILTRAP_SMTP_USER=your_mailtrap_user
-MAILTRAP_SMTP_PASS=your_mailtrap_password
-```
-
-4. Run the app locally
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
 ## 🧪 Testing API with Postman
 
 You can import the provided Postman collection (`NxtLink.postman_collection.json`) to test the following endpoints:
 
-- **Signup:** `POST /api/signup`
-- **Login:** `POST /api/login`
-- **Logout:** `POST /api/logout`
-- **Create short URL:** `POST /api/urls`
-- **Get all URLs:** `GET /api/urls`
-- **Get URL by ID:** `GET /api/urls/:id`
+* **Signup:** `POST /api/signup`
+* **Login:** `POST /api/login`
+* **Logout:** `POST /api/logout`
+* **Create short URL:** `POST /api/urls`
+* **Get all URLs:** `GET /api/urls`
+* **Get URL by ID:** `GET /api/urls/:id`
 
 ---
 
 ## 🚀 Deployment
 
-The app is deployed on [Vercel](https://vercel.com/), just push your code and Vercel takes care of the rest. Make sure your environment variables are set on Vercel dashboard.
+The app is **live and deployed on Vercel**:
+👉 [https://nxt-link-lilac.vercel.app](https://nxt-link-lilac.vercel.app)
 
----
+Vercel handles seamless CI/CD. Just push your code and you're live.
+Don’t forget to configure your **environment variables** in the Vercel dashboard under Project Settings → Environment Variables.
