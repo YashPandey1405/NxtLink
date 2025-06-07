@@ -30,7 +30,7 @@ const Navbar = () => {
               style={{ color: "#1da1f2" }}
             ></i>
             &nbsp;
-            <span className="ml-3">Loginfy-MERN</span>
+            <span className="ml-3">NxtLink Project</span>
           </Link>
 
           <div className="d-flex ms-auto">
