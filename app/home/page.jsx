@@ -17,10 +17,6 @@ export default function Home() {
 
           setItems(response);
           console.log("Fetched Request Status Code :", response?.status);
-
-          if (!res.ok) {
-            router.push("/login");
-          }
         } catch (err) {
           console.error("Auth check failed", err);
           router.push("/login");
