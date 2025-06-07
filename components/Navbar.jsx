@@ -9,20 +9,7 @@ const Navbar = () => {
   // Function to handle logout
   const handleLogout = async () => {
     try {
-      const res = await fetch("/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (res.ok) {
-        // Logout successful
-        // You can redirect to login page or reload
-        router.push("/login");
-      } else {
-        console.error("Logout failed");
-      }
+      router.push("/logout");
     } catch (error) {
       console.error("Error logging out:", error);
     }
