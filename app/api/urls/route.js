@@ -54,7 +54,15 @@ export async function GET(request) {
     }).populate("createdBy", "username fullname");
 
     // Return all ShortID Objects.....
-    return NextResponse.json(allShortIDs, { status: 201 });
+    return NextResponse.json(
+      {
+        data: allShortIDs,
+        currentUser: user._id,
+        success: true,
+        message: "New ShortURL Created successful",
+      },
+      { status: 201 },
+    );
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to return ShortID Objects" },

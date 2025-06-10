@@ -104,3 +104,96 @@ export async function GET(request, { params }) {
     );
   }
 }
+
+// In Put and Delete methods, The ID Is Actual ObjectID Not ShortID......
+export async function PUT(request, { params }) {
+  try {
+    await connectToDatabase();
+    const objectID = await params.id;
+
+    const user = await verifyJWT(request);
+
+    const body = await request.json();
+    const { originalUrl, description, typeURL } = body;
+
+    const requestedShortID = await Url.findById(objectID);
+
+    if (
+      !requestedShortID ||
+      requestedShortID.createdBy.toString() !== user._id.toString()
+    ) {
+      return NextResponse.json(
+        { error: "Unauthorized or ShortID not found" },
+        { status: 403 },
+      );
+    }
+
+    const updatedShortID = await Url.findByIdAndUpdate(
+      objectID,
+      {
+        redirectURL: originalUrl,
+        description: description || "No description provided",
+        typeURL: typeURL || "Private", // Default to Private if not provided
+      },
+      { new: true }, // Return the updated document
+    );
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "ShortURL Updated successfully",
+      },
+      { status: 201 },
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to Update ShortID Object" },
+      { status: 500 },
+    );
+  }
+}
+
+// In Put and Delete methods, The ID Is Actual ObjectID Not ShortID......
+export async function DELETE(request, { params }) {
+  try {
+    console.log("1");
+    await connectToDatabase();
+    console.log("2");
+    const objectID = await params.id;
+
+    console.log("3");
+    const user = await verifyJWT(request);
+
+    console.log("4");
+    const requestedShortID = await Url.findById(objectID);
+
+    console.log("5");
+    if (
+      !requestedShortID ||
+      requestedShortID.createdBy.toString() !== user._id.toString()
+    ) {
+      return NextResponse.json(
+        { error: "Unauthorized or ShortID not found" },
+        { status: 403 },
+      );
+    }
+
+    console.log("6");
+    const DeletedShortID = await Url.findByIdAndDelete(objectID);
+
+    console.log("8");
+    const response = NextResponse.json(
+      {
+        success: true,
+      },
+      { status: 201 },
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to Delete ShortID Object" },
+      { status: 500 },
+    );
+  }
+}
