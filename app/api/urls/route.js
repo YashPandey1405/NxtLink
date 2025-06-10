@@ -91,7 +91,13 @@ export async function POST(request) {
       visitHistory: [],
     });
 
-    return NextResponse.json(newCreatedShortURL, { status: 201 });
+    return NextResponse.json(
+      {
+        success: true,
+        message: "New ShortURL Created successful",
+      },
+      { status: 201 },
+    );
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to create ShortID" },

@@ -41,6 +41,25 @@ const UrlService = {
     }
   },
 
+  createUrl: async (originalUrl, typeURL) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/urls`,
+        {
+          originalUrl,
+          typeURL,
+        },
+        {
+          withCredentials: true, // Ensures cookies (like JWT) are sent
+        },
+      );
+
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.error || "Failed to Get URLs");
+    }
+  },
+
   getAllUrls: async () => {
     try {
       const response = await axios.get(`${API_URL}/urls`, {
@@ -50,6 +69,20 @@ const UrlService = {
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || "Failed to Get URLs");
+    }
+  },
+
+  checkLogin: async () => {
+    try {
+      const response = await axios.get(`${API_URL}/check`, {
+        withCredentials: true, // Ensures cookies (like JWT) are sent
+      });
+
+      return response.data;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.error || "Failed to Check User Login",
+      );
     }
   },
 

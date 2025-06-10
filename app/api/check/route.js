@@ -3,11 +3,14 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/libs/mongodb.libs.js";
 import User from "@/models/User.models.js";
+import jwt from "jsonwebtoken";
 
 export async function GET(request) {
   try {
     // Connect To The Database.....
     await connectToDatabase();
+
+    console.log("1");
 
     // 1. Get token from Authorization header or cookie
     const authHeader = request.headers.get("authorization");
@@ -16,9 +19,15 @@ export async function GET(request) {
         ? authHeader.slice(7)
         : null;
 
+    console.log("2");
     const tokenFromCookie = request.cookies.get("accessToken")?.value;
     const token = tokenFromCookie || bearerToken;
 
+    // 2. Verify token
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    console.log("Decoded Token:", decodedToken);
+
+    console.log("3");
     if (!token) {
       return NextResponse.json(
         {
@@ -29,10 +38,13 @@ export async function GET(request) {
       );
     }
 
+    console.log("4");
     // 3. Fetch user from DB by ID in token payload
     const user = await User.findById(decodedToken._id).select(
       "-password -refreshToken",
     );
+
+    console.log("5");
 
     if (!user) {
       return NextResponse.json(
@@ -44,12 +56,13 @@ export async function GET(request) {
       );
     }
 
+    console.log("6");
     return NextResponse.json(
       {
         success: true,
-        message: "User Not Authenticated",
+        message: "User Is Authenticated",
       },
-      { status: 401 },
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
