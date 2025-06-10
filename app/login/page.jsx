@@ -12,6 +12,9 @@ export default function Login() {
   });
   const [data, setData] = useState(null);
   const [showAlert, setShowAlert] = useState(true);
+  const [useSample, setUseSample] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -23,6 +26,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoggingIn(true);
     console.log("Login form data:", formData);
     const loginUser = await UrlService.Login(
       formData.email,
@@ -36,6 +40,27 @@ export default function Login() {
       setTimeout(() => {
         router.push("/home");
       }, 3000);
+    }
+    setIsLoggingIn(false);
+  };
+
+  // Toggle Feature for Sample Data......
+  const handleSampleToggle = (e) => {
+    const checked = e.target.checked;
+    setUseSample(checked);
+
+    if (checked) {
+      setFormData({
+        email: "sample123@gmail.com",
+        username: "sampleuser",
+        password: "sampleuser",
+      });
+    } else {
+      setFormData({
+        email: "",
+        username: "",
+        password: "",
+      });
     }
   };
 
@@ -80,6 +105,7 @@ export default function Login() {
               value={formData.email}
               onChange={handleChange}
               required
+              readOnly={useSample}
             />
           </div>
 
@@ -95,6 +121,7 @@ export default function Login() {
               value={formData.username}
               onChange={handleChange}
               required
+              readOnly={useSample}
             />
           </div>
 
@@ -110,11 +137,28 @@ export default function Login() {
               value={formData.password}
               onChange={handleChange}
               required
+              readOnly={useSample}
             />
           </div>
+          <div className="form-check mb-3">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="sampleAccount"
+              checked={useSample}
+              onChange={handleSampleToggle}
+            />
+            <label className="form-check-label" htmlFor="sampleAccount">
+              Use sample account
+            </label>
+          </div>
 
-          <button type="submit" className="btn btn-primary w-100 mb-2">
-            Login
+          <button
+            type="submit"
+            className="btn btn-primary w-100 mb-2"
+            disabled={isLoggingIn}
+          >
+            {isLoggingIn ? "Logging in..." : "Login"}
           </button>
           <Link
             href="/signup"

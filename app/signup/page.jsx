@@ -13,6 +13,8 @@ export default function Signup() {
   });
   const [data, setData] = useState(null);
   const [showAlert, setShowAlert] = useState(true);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -24,6 +26,7 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSigningUp(true);
     console.log("Signup form data:", formData);
 
     const signupUser = await UrlService.SignUp(
@@ -40,6 +43,7 @@ export default function Signup() {
         router.push("/home");
       }, 3000);
     }
+    setIsSigningUp(false);
   };
 
   return (
@@ -131,8 +135,12 @@ export default function Signup() {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-100 mb-2">
-            Signup
+          <button
+            type="submit"
+            className="btn btn-primary w-100 mb-2"
+            disabled={isSigningUp}
+          >
+            {isSigningUp ? "Signing up..." : "Signup"}
           </button>
           <Link
             href="/login"
