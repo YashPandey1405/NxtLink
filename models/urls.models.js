@@ -14,6 +14,10 @@ const urlSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
     typeURL: {
       type: String,
       enum: ["Public", "Private"],

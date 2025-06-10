@@ -41,12 +41,13 @@ const UrlService = {
     }
   },
 
-  createUrl: async (originalUrl, typeURL) => {
+  createUrl: async (originalUrl, description, typeURL) => {
     try {
       const response = await axios.post(
         `${API_URL}/urls`,
         {
           originalUrl,
+          description,
           typeURL,
         },
         {

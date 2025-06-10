@@ -8,6 +8,7 @@ import Navbar from "../../components/Navbar.jsx";
 export default function create() {
   const [formData, setFormData] = useState({
     orignalURL: "",
+    description: "",
     visibility: "Private", // default value
   });
   const [data, setData] = useState(null);
@@ -29,6 +30,7 @@ export default function create() {
     console.log("Create ShortURL Form data:", formData);
     const loginUser = await UrlService.createUrl(
       formData.orignalURL,
+      formData.description,
       formData.visibility,
     );
     setData(loginUser);
@@ -107,6 +109,23 @@ export default function create() {
                 name="orignalURL"
                 placeholder="Enter the Orignal URL"
                 value={formData.orignalURL}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            {/* For description Of The URL Type */}
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">
+                Enter The description
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="description"
+                name="description"
+                placeholder="Enter the description"
+                value={formData.description}
                 onChange={handleChange}
                 required
               />

@@ -71,7 +71,7 @@ export async function POST(request) {
     const user = await verifyJWT(request);
 
     const body = await request.json();
-    const { originalUrl, typeURL } = body;
+    const { originalUrl, description, typeURL } = body;
 
     // When The Original URL is not provided, return an error.......
     if (!originalUrl) {
@@ -81,11 +81,20 @@ export async function POST(request) {
       );
     }
 
+    // When The description Of URL is not provided, return an error.......
+    if (!description) {
+      return NextResponse.json(
+        { error: "description Of URL is required" },
+        { status: 400 },
+      );
+    }
+
     const shortID = nanoid(8);
 
     const newCreatedShortURL = await Url.create({
       shortId: shortID,
       redirectURL: originalUrl,
+      description: description || "No description provided",
       typeURL: typeURL || "Private", // Default to Private if not provided
       createdBy: new mongoose.Types.ObjectId(user._id),
       visitHistory: [],

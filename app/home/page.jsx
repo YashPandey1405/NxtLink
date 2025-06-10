@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <h1 className="text-center mt-5">Welcome to NxtLink Homepage Mate</h1>
+      <h1 className="text-center mt-3">Welcome to NxtLink Homepage Mate</h1>
       {items && (
         <div className="container my-4">
           <div className="row">
@@ -46,6 +46,16 @@ export default function Home() {
                       <strong>Username:</strong> {item.createdBy.username}{" "}
                       <br />
                       <strong>Short ID:</strong> {item.shortId} <br />
+                      <strong>Description: </strong>
+                      <span
+                        style={{
+                          color: "#40E0D0",
+                          textShadow: "0 0 2px #40E0D0",
+                        }}
+                      >
+                        {item.description}
+                      </span>
+                      <br />
                       <strong>Type:</strong> {item.typeURL} <br />
                       <strong>ShortUrl:</strong>{" "}
                       <a
